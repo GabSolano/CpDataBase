@@ -1,177 +1,207 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>As Crônicas de Kepler-186f</title>
+    <title>ITC - Mercado Kepler</title>
     <style>
         :root {
-            --bg-color: #f4f7f6;
-            --text-color: #2c3e50;
-            --primary-color: #2980b9;
-            --border-color: #dcdde1;
-            --white: #ffffff;
+            --bg-color: #0d1117; 
+            --panel-bg: #161b22;
+            --text-main: #c9d1d9;
+            --accent: #58a6ff; 
+            --border: #30363d;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 30px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            max-width: 900px;
+        .dashboard {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 1000px;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
+        }
+
+        .header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
 
         h1 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-            font-size: 24px;
+            margin: 0;
+            color: var(--accent);
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        p.subtitle {
-            color: #7f8c8d;
-            margin-bottom: 30px;
+        .status {
+            color: #3fb950;
             font-size: 14px;
+            margin-top: 5px;
         }
+
+        .controls {
+            background: #0d1117;
+            padding: 20px;
+            border: 1px dashed var(--border);
+            margin-bottom: 30px;
+        }
+
+        .controls h3 { margin-top: 0; color: #8b949e; font-size: 16px; }
 
         form {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            align-items: center;
+            gap: 20px;
+            align-items: flex-end;
             flex-wrap: wrap;
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
         }
 
-        select,
-        input,
-        button {
-            padding: 10px 12px;
-            font-size: 14px;
-            border: 1px solid var(--border-color);
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #8b949e;
+            text-transform: uppercase;
+        }
+
+        select, input, button {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 10px;
+            font-family: inherit;
             border-radius: 4px;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--accent);
             outline: none;
         }
 
-        select:focus,
-        input:focus {
-            border-color: var(--primary-color);
-        }
-
         button {
-            background-color: var(--primary-color);
-            color: var(--white);
-            border: none;
+            background-color: var(--accent);
+            color: #000;
+            font-weight: bold;
             cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s;
-            padding: 10px 20px;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
         button:hover {
-            background-color: #2471a3;
+            background-color: #79c0ff;
+            box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
         }
 
         table {
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
         }
 
-        th,
-        td {
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 12px;
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
             text-align: left;
         }
 
         th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #34495e;
-            text-transform: uppercase;
-            font-size: 13px;
+            color: var(--accent);
+            font-size: 14px;
         }
 
-        tbody tr:hover {
-            background-color: #f1f2f6;
+        tr:hover {
+            background-color: rgba(88, 166, 255, 0.05);
         }
 
-        .badge {
-            background-color: #e8f4f8;
-            color: var(--primary-color);
-            padding: 4px 8px;
-            border-radius: 4px;
+        .tag {
+            background-color: #21262d;
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 12px;
             font-size: 12px;
-            font-weight: bold;
+            color: #ff7b72;
         }
     </style>
 </head>
-
 <body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>Terminal Comercial Kepler-186f</h1>
+            <div class="status">● Conexão Oracle Estabelecida | Operador Autorizado</div>
+        </div>
 
-    <div class="container">
-        <h1>Painel de Controle: Kepler-186f</h1>
-        <p class="subtitle">Feito por Leandro e Kaiky</p>
+        <div class="controls">
+            <h3>[ Executar Protocolo de Flutuação ]</h3>
+            <form action="/processar" method="POST">
+                <div class="input-group">
+                    <label>Tipo de Ocorrência</label>
+                    <select name="evento" required>
+                        <option value="" disabled selected>-- SELECIONAR --</option>
+                        <option value="RADIACAO">Tempestade de Radiação Gama</option>
+                        <option value="DESCOBERTA_MINA">Descoberta de Nova Jazida</option>
+                    </select>
+                </div>
 
-        <form action="/processar" method="POST">
-            <select name="evento" id="evento" required>
-                <option value="" disabled selected>Selecione o Evento</option>
-                <option value="RADIACAO">Tempestade de Radiação</option>
-                <option value="DESCOBERTA_MINA">Descoberta de Mina</option>
-            </select>
+                <div class="input-group">
+                    <label>Setor Alvo</label>
+                    <select name="setor" required>
+                        <option value="" disabled selected>-- SELECIONAR --</option>
+                        <option value="MINERAL">Divisão MINERAL</option>
+                        <option value="COMBUSTIVEL">Divisão COMBUSTIVEL</option>
+                        <option value="DADOS">Divisão DADOS</option>
+                    </select>
+                </div>
 
-            <select name="setor" id="setor" required>
-                <option value="" disabled selected>Selecione o Setor</option>
-                <option value="MINERAL">MINERAL</option>
-                <option value="COMBUSTIVEL">COMBUSTIVEL</option>
-                <option value="DADOS">DADOS</option>
-            </select>
+                <div class="input-group">
+                    <label>Intensidade (%)</label>
+                    <input type="number" name="valor" value="10" step="0.1" required style="width: 80px;">
+                </div>
 
-            <input type="number" name="valor" id="valor" value="10" step="0.1" required style="width: 90px;"
-                title="Porcentagem de Flutuação">
-
-            <button type="submit">Aplicar</button>
-        </form>
+                <button type="submit">Transmitir Ordem</button>
+            </form>
+        </div>
 
         <table>
             <thead>
                 <tr>
-                    <th>Cód.</th>
-                    <th>Ativo Comercial</th>
-                    <th>Setor</th>
-                    <th>Cotação (Créditos)</th>
-                    <th>Estoque</th>
+                    <th>Registro ID</th>
+                    <th>Recurso Planetário</th>
+                    <th>Classificação</th>
+                    <th>Preço Atual (Cr$)</th>
+                    <th>Unidades no Silo</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ativo in ativos %}
                 <tr>
-                    <td>{{ ativo[0] }}</td>
-                    <td><strong>{{ ativo[1] }}</strong></td>
-                    <td><span class="badge">{{ ativo[2] }}</span></td>
-                    <td>C$ {{ "%.2f"|format(ativo[3]) }}</td>
+                    <td>#{{ ativo[0] }}</td>
+                    <td>{{ ativo[1] }}</td>
+                    <td><span class="tag">{{ ativo[2] }}</span></td>
+                    <td>Cr$ {{ "%.2f"|format(ativo[3]) }}</td>
                     <td>{{ ativo[4] }} un.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-
 </body>
-
 </html>
