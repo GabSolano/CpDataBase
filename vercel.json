@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "displayName": "Painel Kepler - Gabriel Solano",
   "builds": [
     {
       "src": "api/api.py",
