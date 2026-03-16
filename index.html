@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>As Crônicas de Kepler-186f</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #2c3e50;
+            --primary-color: #2980b9;
+            --border-color: #dcdde1;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 900px;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+
+        p.subtitle {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        form {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+
+        select,
+        input,
+        button {
+            padding: 10px 12px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: var(--primary-color);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            padding: 10px 20px;
+        }
+
+        button:hover {
+            background-color: #2471a3;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #34495e;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f2f6;
+        }
+
+        .badge {
+            background-color: #e8f4f8;
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Painel de Controle: Kepler-186f</h1>
+        <p class="subtitle">Feito por Leandro e Kaiky</p>
+
+        <form action="/processar" method="POST">
+            <select name="evento" id="evento" required>
+                <option value="" disabled selected>Selecione o Evento</option>
+                <option value="RADIACAO">Tempestade de Radiação</option>
+                <option value="DESCOBERTA_MINA">Descoberta de Mina</option>
+            </select>
+
+            <select name="setor" id="setor" required>
+                <option value="" disabled selected>Selecione o Setor</option>
+                <option value="MINERAL">MINERAL</option>
+                <option value="COMBUSTIVEL">COMBUSTIVEL</option>
+                <option value="DADOS">DADOS</option>
+            </select>
+
+            <input type="number" name="valor" id="valor" value="10" step="0.1" required style="width: 90px;"
+                title="Porcentagem de Flutuação">
+
+            <button type="submit">Aplicar</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Cód.</th>
+                    <th>Ativo Comercial</th>
+                    <th>Setor</th>
+                    <th>Cotação (Créditos)</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ativo in ativos %}
+                <tr>
+                    <td>{{ ativo[0] }}</td>
+                    <td><strong>{{ ativo[1] }}</strong></td>
+                    <td><span class="badge">{{ ativo[2] }}</span></td>
+                    <td>C$ {{ "%.2f"|format(ativo[3]) }}</td>
+                    <td>{{ ativo[4] }} un.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
